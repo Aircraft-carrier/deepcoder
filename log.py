@@ -6,7 +6,7 @@ from pathlib import Path
 from loguru import logger as _logger  
 
 # 定义日志根目录  
-DEEPCODER_ROOT = Path(__file__).parent.parent  
+DEEPCODER_ROOT = Path(__file__).parent
 
 _print_level = "INFO"  
 _llm_stream_log = print  # 默认使用 print 作为流日志记录函数  

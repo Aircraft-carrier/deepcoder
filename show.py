@@ -36,10 +36,24 @@ The message is as follows:
 ```
  the code to rewrite: Write code with triple quote. Do your best to implement THIS IN ONLY ONE FILE.
 ---
+Output format:
+## Code
+```python  
+[code]
+```
+
+## Test
+```python  
+[test cases]
+```
 Now you should start rewriting the code:
 """
 
 CODER_PROMPT_TEMPLATE = """
+Output fomate:
+```python
+[Code]
+``` 
 The message is as follows:
 # Requirement
 
@@ -204,7 +218,7 @@ def hand_reviewer_agent(history, state: AgentState):
 def handle_write_and_exec_code(history, state: AgentState):
     """执行阶段生成阶段（流式更新）"""
     counter = 0
-    max_retry = 3
+    max_retry = 5
     sucess = False
 
     while not sucess and counter < max_retry:
@@ -243,10 +257,16 @@ def handle_write_and_exec_code(history, state: AgentState):
         print(f"---------------------{colors.RED} Execution Result {colors.RESET}---------------------")
         display_code(state.execution)
         counter += 1
+        if success:
+            break
     
-    yield history + [
-        {"role": "assiatant","content": f"生成代码如下 ： \n```python\n{state.coder_step}\n```"}
-    ],state
+    # pre_block = history[-1]["content"] if history[-1]["role"] == "assistant" else ""  
+    # block = wrap_thinking("生成代码如下", f"Code ： \n```python\n{state.coder_step}\n```", is_open=True)  
+    # block = pre_block + block
+    # history, state =  create_response(history, block, state)
+    # yield history, state
+    yield history + [{"role": "assistant", "content": f"Code ： \n```python\n{state.coder_step}\n```"}],state
+    pass
 
 
 css = """
@@ -326,7 +346,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="DeepSeek Multi-Agent",css=css) as 
         bubble_full_width=False,
         render_markdown=True,
         height=600,
-        avatar_images=(None, None),
+        avatar_images=("E:\A25cun\coder\deepcoder\img\gg.png", "E:\A25cun\coder\deepcoder\img\hh.jpg"),
         show_copy_button=True,
         layout="panel",
         type="messages" 
@@ -360,10 +380,9 @@ with gr.Blocks(theme=gr.themes.Soft(), title="DeepSeek Multi-Agent",css=css) as 
         # 添加段落间距
         return f'<div class="content-block">{text}</div>'
 
-    def wrap_thinking(title, content, is_open=False):
+    def wrap_thinking(title, content, is_open=False,is_format=True):
         """带状态的折叠块包装"""
-        # content = format_content(content) if is_open else content
-        content = format_content(content)
+        content = format_content(content) if is_format else content
         open_attr = "open" if is_open else ""
         return f"""
     <details {open_attr} class='thinking-process'>
@@ -386,22 +405,6 @@ with gr.Blocks(theme=gr.themes.Soft(), title="DeepSeek Multi-Agent",css=css) as 
         ],
         outputs=[chatbot, state]
     )
-    # .then(
-    #     handle_coder_agent,
-    #     inputs=[  
-    #         chatbot, 
-    #         state
-    #     ],
-    #     outputs=[chatbot, state]
-    # ).then(
-    #     handle_tester_agent,
-    #     inputs=[  
-    #         chatbot, 
-    #         state
-    #     ],
-    #     outputs=[chatbot, state]
-    # )
-
     
     submit_btn.click(
         process_message,

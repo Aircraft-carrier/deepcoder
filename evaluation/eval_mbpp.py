@@ -74,8 +74,8 @@ def generate_one(example):
     prompt = example['prompt']
     example['gpt_completion'] = deepcoder.get_answer(prompt)
     # example['gpt_completion']= "```python\nprint(\"hello\")\n```"
-    import time 
-    time.sleep(1)
+    # import time 
+    # time.sleep(1)
     return convert_for_evaluation(example)
 
 
@@ -114,6 +114,7 @@ def generate_main(args):
         try:  
             # Call the generation function  
             gen_example = generate_one(ex)  
+            print("gen_example: ",gen_example)
             generated_examples.append(gen_example)  
 
             # Save every 5 processed examples  
@@ -128,7 +129,7 @@ def generate_main(args):
             # Handle the error as appropriate (logging, etc.)  
 
     # Final save after all examples processed  
-    with open(saved_path, 'a', encoding='utf-8') as fw:  
+    with open(saved_path, 'w', encoding='utf-8') as fw:  
         for ex in generated_examples:  
             fw.write(json.dumps(ex) + '\n')  
         print("Final save: saved {} processed examples into {} over!".format(len(generated_examples), saved_path))  
@@ -141,5 +142,17 @@ if __name__ == '__main__':
     parser.add_argument('--output_path', type=str, help="output path of your generation", default='E:\\A25cun\\coder\\deepcoder\\evaluation\\output\\python_mbpp.jsonl')  
     parser.add_argument('--temp_dir', type=str, help="temp dir for evaluation", default="tmp")
     args = parser.parse_args()
-    generate_main(args)
-    pass
+    input_file,tmp,problem_file = generate_main(args)
+    print("input_file : ",input_file)
+    print("tmp : ",tmp)
+    print("problem_file : ",problem_file)
+    result = evaluate_functional_correctness(
+        input_file=input_file,
+        tmp_dir=tmp,
+        n_workers=8,
+        timeout=3.0,
+        problem_file=os.path.join(data_abs_dir, f"mbpp_test.jsonl"),
+        language="python",
+        is_mbpp=True
+    )
+    print(result)

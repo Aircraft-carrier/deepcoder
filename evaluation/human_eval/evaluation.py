@@ -13,6 +13,8 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from .data import stream_jsonl
 from .execution import check_correctness
+from deepcoder.interpreter import ExecuteNbCode,display_code
+
 IMPORT_HELPER = {
     "python": [
         "import math",
@@ -126,12 +128,15 @@ def process_humaneval_test(sample, problems, example_test=False, is_mbpp=False, 
         test = problems[task_id]["example_test"]
     else:
         test = problems[task_id]["test"]
-    code = sample["generation"]
+    # code = sample["generation"]
+    code = sample["output"]
 
     # Pre-process for different languages
     if language == "python":
         test_setup = "\n".join(IMPORT_HELPER["python"]) + "\n"
         test_string = test_setup + code + "\n" + test + "\n"
+        # print(f"{task_id}th task is currently executing : \n")
+        # display_code(test_string)
     elif language == "cpp":
         test_set_up = ""
         for s in IMPORT_HELPER["cpp"]:
@@ -215,8 +220,9 @@ def evaluate_functional_correctness(
 
     problems = read_dataset(problem_file,
                             dataset_type="humaneval")
+    
     sample_jsonl = stream_jsonl_all(input_file)
-
+    print("read all data")
 
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
 
@@ -275,7 +281,14 @@ def evaluate_functional_correctness(
         print("Running test suites...")
         for future in tqdm(as_completed(futures), total=len(futures)):
             result = future.result()
-            print("result:",result)
+            print(f"  result: {result['result']} , passed: {result['passed']}") 
+            if not result['passed']:
+                task_id = result['task_id']
+                for sample in sample_jsonl:
+                    if sample["task_id"] == task_id:
+                        display_code(sample['test_code'])
+                        break
+            
             results[result["task_id"]].append((result["completion_id"], result))
 
     # Calculate pass@k.
@@ -286,12 +299,10 @@ def evaluate_functional_correctness(
         correct.append(sum(passed))
     total = np.array(total)
     correct = np.array(correct)
-    if evaluate_pass_at_k:
-        ks = k
-        pass_at_k = {f"pass@{k}": estimate_pass_at_k(total, correct, k).mean()
-                     for k in ks if (total >= k).all()}
-        print(pass_at_k)
-    else:
-        print("Total:", np.sum(total))
-        print("Correct:", np.sum(correct))
-    return pass_at_k
+    ks = k
+    pass_at_k = {f"pass@{k}": estimate_pass_at_k(total, correct, k).mean()
+                    for k in ks if (total >= k).all()}
+    print(pass_at_k)
+    print("Total:", np.sum(total))
+    print("Correct:", np.sum(correct))
+

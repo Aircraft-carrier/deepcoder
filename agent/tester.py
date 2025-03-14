@@ -27,8 +27,8 @@ The message is as follows:
 {requirement}
 
 ---
-Now you should start writing test case for the code:
-## Write TestCase with triple quote. Do your best to implement THIS IN ONLY ONE FILE.
+Now you should start writing test cases for the code, with up to 15 test cases:
+## Write TestCase with ```python [your code]``` format. Do your best to implement THIS IN ONLY ONE FILE.
 Test Case : 
 """
 
@@ -40,7 +40,7 @@ class TesterAgent(BaseAgent):
         super().__init__(
             name="Test Cases Generator",
             instructions=INSTRUCTIONS,
-            model = "deepseek-coder",
+            # model = "deepseek-coder",
             functions=functions or []
         )
         self.code_parser = CodeParser()     

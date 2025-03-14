@@ -11,6 +11,9 @@ class BaseAgent:
         api_key: str = "sk-1fac7836ded54cfabf056520607a4c4d",
         base_url: str = "https://api.deepseek.com",
         model: str = "deepseek-chat",
+        # api_key: str = "sk-894e4555026b4c57b95aa35792ba5e90",
+        # base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        # model: str = "qwen-plus",
         instructions: str = "",
         functions: List[Dict] = None,
         stream: bool = True

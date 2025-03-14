@@ -21,12 +21,12 @@ Important Formatting:
 
 NOTE : Use the above Chain-of-Thought approach to think and provide the answer using the following format at the end of the answer
 If there are functions in the Test Cases that are redundantly declared in the Legacy Code, remove that portion In Test Case Part
-## ReWrited Code
+## Code
 ```python  
 [code]
 ```
 
-## ReWrited Test Case
+## Test
 ```python  
 [test cases]
 ```
@@ -63,7 +63,7 @@ class DebugAgent(BaseAgent):
         super().__init__(
             name="Debug Error",
             instructions=INSTRUCTIONS,
-            model = "deepseek-coder",
+            # model = "deepseek-coder",
             functions=functions or []
         ) 
         self.code_parser = CodeParser()
@@ -73,10 +73,10 @@ class DebugAgent(BaseAgent):
                                         test_code=test_code, 
                                         logs=output_detail )
         response = self.ask(prompt=prompt)
-        code = self.code_parser.parse_code(block="ReWrited Code",text = response,lang="python")
+        code = self.code_parser.parse_code(block="Code",text = response,lang="python")
         print(f"---------------------{colors.YELLOW} Debug - ReWrited Code {colors.RESET}---------------------")
         display_code(code)
-        test_cases = self.code_parser.parse_code(block="ReWrited Test Case",text = response,lang="python")
+        test_cases = self.code_parser.parse_code(block="Test",text = response,lang="python")
         print(f"---------------------{colors.YELLOW} Debug - ReWrited Test Case {colors.RESET}---------------------")
         display_code(test_cases)
         return code,test_cases

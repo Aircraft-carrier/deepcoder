@@ -54,7 +54,9 @@ class CodeParser:
                 # 将block的标题和内容分开，并去除前后空白字符  
                 block_title, block_content = block.split("\n", 1)  
             
-            block_dict[block_title.strip()] = block_content.strip()  
+            block_title = block_title.replace('"', '').strip()  
+            
+            block_dict[block_title] = block_content.strip()   
 
         return block_dict  
 

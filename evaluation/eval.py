@@ -87,27 +87,12 @@ def generate_main(args):
             # Handle the error as appropriate (logging, etc.)  
 
     # Final save after all examples processed  
-    with open(saved_path, 'a', encoding='utf-8') as fw:  
+    with open(saved_path, 'w', encoding='utf-8') as fw:  
         for ex in generated_examples:  
             fw.write(json.dumps(ex) + '\n')  
         print("Final save: saved {} processed examples into {} over!".format(len(generated_examples), saved_path))  
 
     print("Generate all over!!!")  
-
-    # generated_examples = []
-    # for ex in tqdm(examples, desc='Generating'):
-    #     task_id = int(ex['task_id'].split('/')[1])  # Extract numerical part from 'Python/0'  
-        
-    #     if task_id < 17:  
-    #         continue
-    #     gen_example = generate_one(ex, args.language)
-    #     generated_examples.append(gen_example)
-
-    # print("Generate all over!!!")
-    # with open(saved_path, 'w', encoding='utf-8') as fw:
-    #     for ex in generated_examples:
-    #         fw.write(json.dumps(ex) + '\n')
-    #     print("Save {} processed examples into {} over!".format(len(generated_examples), saved_path))
 
     return saved_path,temp_dir,problem_file
 

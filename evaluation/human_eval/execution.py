@@ -12,6 +12,7 @@ import gzip
 import json
 from typing import *
 import traceback
+import threading  
 
 java_exec = ""
 node_exec = ""
@@ -24,7 +25,6 @@ def unsafe_execute(tmp_dir, sample, language_type, timeout, result):
     random_id = random.randint(1, 100000)
     if "python" in language_type.lower():
         with create_tempdir():
-            # 保留原始清理逻辑
             import os
             import shutil
             rmtree = shutil.rmtree
@@ -651,16 +651,39 @@ def check_correctness(
 # THE SOFTWARE.
 # ============================================================================
 @contextlib.contextmanager
-def time_limit(seconds: float):
-    def signal_handler(signum, frame):
-        raise TimeoutException("Timed out!")
+def time_limit(seconds: float):  
+    if platform.system() == "Windows":  
+        # 在 Windows 上使用 threading.Timer  
+        class TimeoutException(Exception):  
+            pass  
 
-    signal.setitimer(signal.ITIMER_REAL, seconds)
-    signal.signal(signal.SIGALRM, signal_handler)
-    try:
-        yield
-    finally:
-        signal.setitimer(signal.ITIMER_REAL, 0)
+        timer = threading.Timer(seconds, lambda: (_ for _ in ()).throw(TimeoutException("Timed out!")))  
+        timer.start()  
+        try:  
+            yield  
+        finally:  
+            timer.cancel()  
+    else:  
+        # 在其他平台上使用 signal  
+        def signal_handler(signum, frame):  
+            raise TimeoutException("Timed out!")  
+
+        signal.signal(signal.SIGALRM, signal_handler)  
+        signal.alarm(seconds)  
+        try:  
+            yield  
+        finally:  
+            signal.alarm(0)  # 取消定时器
+# def time_limit(seconds: float):
+#     def signal_handler(signum, frame):
+#         raise TimeoutException("Timed out!")
+
+#     signal.setitimer(signal.ITIMER_REAL, seconds)
+#     signal.signal(signal.SIGALRM, signal_handler)
+#     try:
+#         yield
+#     finally:
+#         signal.setitimer(signal.ITIMER_REAL, 0)
 
 
 @contextlib.contextmanager

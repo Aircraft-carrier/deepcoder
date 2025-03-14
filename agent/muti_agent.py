@@ -46,7 +46,7 @@ class MultiAgent():
         self.execute_code = ExecuteNbCode()
         self.context = Context()
 
-    async def write_and_exec_code(self, max_retry: int = 2) -> Tuple[str, Any, bool]:
+    async def write_and_exec_code(self, max_retry: int = 1) -> Tuple[str, Any, bool]:
         """生成并执行代码，带有自动调试重试机制"""
         counter = 0
         success = False
@@ -110,8 +110,10 @@ class MultiAgent():
 
     def _initial_generation(self):
         """初次生成代码和测试用例"""
+        self.coder.clear_history()
         self.context.code = self.coder.run(self.context.instruction)
         logger.info("Initial code generated successfully")
+        self.tester.clear_history()
         self.context.test_code = self.tester.run(self.context.instruction)
         logger.info("Initial test case generated successfully")
 
@@ -130,6 +132,7 @@ class MultiAgent():
         logger.info("Debug-generated code updated")
 
     def _revised_prompt(self):
+        self.reviewer.clear_history()
         prompt = self.reviewer.run(self.context.instruction,self.context.output_detail)
         if prompt and "def" in prompt:
             self.reviewer.clear_history()

@@ -6,7 +6,8 @@ from deepcoder.interpreter import display_code,colors
 INSTRUCTIONS = """
 **Role**: You are a software programmer.
 
-**Task**: As a programmer, you are required to complete the function. Use a Chain-of-Thought approach to break down the problem, create pseudocode, and then write the code in Python language.
+**Task**: As a programmer, you are required to complete the function. Use a Chain-of-Thought approach to break down the problem, \
+    create pseudocode, and then write the code in Python language.
 
 **Instructions**: 
 1. **Understand and Clarify**: Make sure you understand the task. 
@@ -31,7 +32,7 @@ The message is as follows:
 
 ---
 Now you should start writing the code:
-## Write code with triple quote. Do your best to implement THIS IN ONLY ONE FILE.
+## Write code with ```python [your code]``` format. Do your best to implement THIS IN ONLY ONE FILE.
 """
 
 answer = """
@@ -73,7 +74,7 @@ class CoderAgent(BaseAgent):
         super().__init__(
             name="Code Generator",
             instructions=INSTRUCTIONS,
-            model = "deepseek-coder",
+            # model = "deepseek-coder",
             functions=functions or []
         )
         self.code_parser = CodeParser()     

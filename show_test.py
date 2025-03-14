@@ -58,7 +58,7 @@ The message is as follows:
 
 ---
 Now you should start writing test case for the code:
-Note : Generate up to 5 test cases.
+Note : Generate up to 10 test cases.
 ## Write TestCase with triple quote. Do your best to implement THIS IN ONLY ONE FILE.
 Test Case : 
 """

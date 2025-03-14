@@ -6,7 +6,8 @@ from deepcoder.interpreter import display_code,colors
 INSTRUCTIONS = """
 **Role**: You are a Prompt Reviewer specialized in code generation tasks.
 
-**Task**: Given an original prompt and test errors from generated code, rewrite the prompt to explicitly prevent recurring failures. Do NOT generate code.
+**Task**: Given an original prompt and test errors from generated code, rewrite the prompt to explicitly prevent recurring failures.
+ Do NOT generate code.
 
 **Instructions**:
 1. **Error Diagnosis**:
@@ -31,6 +32,7 @@ Modification Map:
 [Improved prompt here]
 ```
 """
+
 PROMPT_TEMPLATE = """
 The message is as follows:
 # Legacy Prompt
@@ -44,7 +46,7 @@ The message is as follows:
 ```
 ---
 Now you should start rewriting the prompt:
-## Write prompt with triple quote. Do your best to implement THIS IN ONLY ONE FILE.
+## Write prompt with ```python [your code]``` format. Do your best to implement THIS IN ONLY ONE FILE.
 """
 
 

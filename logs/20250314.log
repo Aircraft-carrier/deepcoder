@@ -1,0 +1,46 @@
+2025-03-14 22:55:02.186 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 22:55:08.252 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 22:55:08.299 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 22:55:26.496 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:02:30.865 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:02:38.062 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:02:38.070 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:02:49.470 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:04:00.083 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:04:24.847 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:04:24.889 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:04:42.797 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:06:44.623 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:06:58.767 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:06:58.815 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:07:26.531 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:12:39.581 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:13:07.705 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:13:07.761 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:13:31.883 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:13:43.147 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:13:54.909 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:13:54.921 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:14:26.032 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:16:04.124 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:16:21.126 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:16:21.131 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:16:46.016 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:18:21.801 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:18:43.200 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:18:43.242 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:19:01.564 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:19:16.773 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:19:42.119 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
+2025-03-14 23:19:42.127 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator <- user
+2025-03-14 23:20:13.394 | INFO     | deepcoder.agent.agent:_add_message:119 - Test Cases Generator -> assistant
+2025-03-14 23:20:13.481 | INFO     | deepcoder.agent.agent:_add_message:119 - Debug Error <- user
+2025-03-14 23:20:58.859 | INFO     | deepcoder.agent.agent:_add_message:119 - Debug Error -> assistant
+2025-03-14 23:20:58.859 | ERROR    | deepcoder.utils.common:parse_code:87 - ```python.*?\s+(.*?)``` not match following text:
+2025-03-14 23:20:58.859 | ERROR    | deepcoder.utils.common:parse_code:88 - 
+2025-03-14 23:20:58.860 | ERROR    | deepcoder.utils.common:parse_code:87 - ```python.*?\s+(.*?)``` not match following text:
+2025-03-14 23:20:58.860 | ERROR    | deepcoder.utils.common:parse_code:88 - 
+2025-03-14 23:20:58.931 | INFO     | deepcoder.agent.agent:_add_message:119 - Debug Error <- user
+2025-03-14 23:21:36.678 | INFO     | deepcoder.agent.agent:_add_message:119 - Debug Error -> assistant
+2025-03-14 23:21:36.685 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator <- user
+2025-03-14 23:22:13.087 | INFO     | deepcoder.agent.agent:_add_message:119 - Code Generator -> assistant
